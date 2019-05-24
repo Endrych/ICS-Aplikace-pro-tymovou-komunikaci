@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using ICS_Project.Bl.Factories;
@@ -44,14 +45,9 @@ namespace ICS_Project.Bl
                 return null;
             }
 
-            var hash = GetHashString(user.Salt, model.Password);
+            var hash = GetHashString(model.Password, user.Salt);
 
-            if (hash == user.Password)
-            {
-                return user;
-            }
-
-            return null;
+            return hash == user.Password ? user : null;
         }
 
         private string GetHashString(string password, string salt)

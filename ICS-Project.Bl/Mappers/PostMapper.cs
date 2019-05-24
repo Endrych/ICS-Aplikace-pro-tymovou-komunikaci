@@ -10,53 +10,63 @@ namespace ICS_Project.Bl.Mappers
 {
     public class PostMapper
     {
-        private readonly UserMapper _userMapper;
-        private readonly TeamMapper _teamMapper;
-        private readonly CommentMapper _commentMapper;
+        private readonly Mappers _mappers;
 
-        public PostMapper()
+        public PostMapper(Mappers mappers)
         {
-            _userMapper = new UserMapper();
-            _teamMapper = new TeamMapper();
-            _commentMapper = new CommentMapper();
+            _mappers = mappers;
         }
+
 
         public PostListModel MapToPostListModel(PostEntity entity)
         {
+            if (entity == null)
+            {
+                return null;
+            }
+
             return new PostListModel
             {
                 Id = entity.Id,
                 Title = entity.Title,
                 Timestamp = entity.Timestamp,
-                Author = _userMapper.MapToUserDetailModel(entity.Author),                
+                Author = _mappers.UserMapper.MapToUserDetailModel(entity.Author),                
             };
         }
 
         public PostDetailModel MapToPostDetailModel(PostEntity entity)
         {
+            if (entity == null)
+            {
+                return null;
+            }
+
             return new PostDetailModel
             {
                 Id = entity.Id,
                 Title = entity.Title,
                 Timestamp = entity.Timestamp,
                 Content = entity.Content,
-                Author = _userMapper.MapToUserDetailModel(entity.Author),
-                Team =  _teamMapper.MapToTeamDetailModel(entity.Team),
-                Comments = entity.Comments.AsEnumerable().Select(_commentMapper.MapToCommentDetailModelModel).ToList()
+                Author = _mappers.UserMapper.MapToUserDetailModel(entity.Author),
+                Comments = entity.Comments.AsEnumerable().Select(_mappers.CommentMapper.MapToCommentDetailModel).ToList()
             };
         }
 
         public PostEntity MapToPostEntity(PostDetailModel model)
         {
+            if (model == null)
+            {
+                return null;
+            }
+
             return new PostEntity()
             {
                 Id = model.Id,
-                Author = _userMapper.MapToUserEntity(model.Author),
-                Comments = model.Comments.AsEnumerable().Select(_commentMapper.MapToCommentEntity).ToList(),
+                Author = _mappers.UserMapper.MapToUserEntity(model.Author),
+                Comments = model.Comments.AsEnumerable().Select(_mappers.CommentMapper.MapToCommentEntity).ToList(),
                 Title = model.Title,
                 Timestamp =  model.Timestamp,
                 Content = model.Content,
-                Team = _teamMapper.MapToTeamEntity(model.Team)
             };
         }
     }

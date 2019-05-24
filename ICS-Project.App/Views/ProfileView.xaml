@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="ICS_Project.App.Views.ProfileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ICS_Project.App.Views"
+             mc:Ignorable="d" 
+             xmlns:viewModels="clr-namespace:ICS_Project.App.ViewModels"
+             xmlns:app="clr-namespace:ICS_Project.App"
+             DataContext="{Binding MenuViewModel, Source={StaticResource ViewModelLocator}}"
+             d:DataContext="{d:DesignInstance viewModels:MenuViewModel, IsDesignTimeCreatable=True}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" Padding="20,0">
+            <StackPanel>
+                <Label HorizontalAlignment="Center" FontSize="30" FontWeight="Bold" Content="Profile"></Label>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Label FontSize="18" Height="35" HorizontalAlignment="Left" Content="{Binding User.FirstName}"/>
+                    <Label FontSize="18" Height="35" HorizontalAlignment="Right"  Content="{Binding User.LastName}"/>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Label FontSize="18" Height="35" HorizontalAlignment="Left" Content="{Binding User.Email}"/>
+                    <Label FontSize="18" Height="35" HorizontalAlignment="Right"  Content="{Binding User.Nickname}"/>
+                </StackPanel>
+                <local:Activity Margin="10,0,0,0"></local:Activity>
+            </StackPanel>
+            
+        </ScrollViewer>
+
+    </Grid>
+</UserControl>

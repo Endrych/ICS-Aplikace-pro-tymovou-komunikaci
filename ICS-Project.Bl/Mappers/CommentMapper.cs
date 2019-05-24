@@ -8,36 +8,47 @@ namespace ICS_Project.Bl.Mappers
 {
     public class CommentMapper
     {
-        private readonly PostMapper _postMapper;
-        private readonly UserMapper _userMapper;
+        private readonly Mappers _mappers;
 
         public CommentMapper()
         {
-            _postMapper = new PostMapper();
-            _userMapper = new UserMapper();
+            _mappers = new Mappers();
         }
 
-        public CommentDetailModel MapToCommentDetailModelModel(CommentEntity entity)
+        public CommentMapper(Mappers mappers)
         {
+            _mappers = mappers;
+        }
+
+        public CommentDetailModel MapToCommentDetailModel(CommentEntity entity)
+        {
+            if (entity == null)
+            {
+                return null;
+            }
+
             return new CommentDetailModel
             {
                 Id = entity.Id,
                 Timestamp = entity.Timestamp,
                 Content = entity.Content,
-                Author = _userMapper.MapToUserDetailModel(entity.Author),
-                Post = _postMapper.MapToPostDetailModel(entity.Post)
+                Author = _mappers.UserMapper.MapToUserDetailModel(entity.Author),
             };
         }
 
         public CommentEntity MapToCommentEntity(CommentDetailModel model)
         {
+            if (model == null)
+            {
+                return null;
+            }
+
             return new CommentEntity()
             {
                 Id = model.Id,
                 Timestamp = model.Timestamp,
                 Content = model.Content,
-                Author = _userMapper.MapToUserEntity(model.Author),
-                Post = _postMapper.MapToPostEntity(model.Post)
+                Author = _mappers.UserMapper.MapToUserEntity(model.Author),
             };
         }
 

@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ICS_Project.Db.Entities.Base;
 
 namespace ICS_Project.Db.Entities
@@ -9,7 +8,8 @@ namespace ICS_Project.Db.Entities
         public string Title { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }
-        public virtual ICollection<UserTeamEntity> UserTeams { get; set; } = new List<UserTeamEntity>();
+        public virtual UserEntity Admin { get; set; }
+        public virtual ICollection<UserEntity> Users { get; set; } = new List<UserEntity>();
         public virtual ICollection<PostEntity> Posts { get; set; } = new List<PostEntity>();
     }
 }

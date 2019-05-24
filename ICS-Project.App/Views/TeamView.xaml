@@ -1,0 +1,273 @@
+﻿<UserControl x:Class="ICS_Project.App.Views.TeamView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ICS_Project.App.Views"
+             xmlns:viewModels="clr-namespace:ICS_Project.App.ViewModels"
+             xmlns:converter="clr-namespace:ICS_Project.App.Converter"
+             xmlns:app="clr-namespace:ICS_Project.App"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             DataContext="{Binding TeamViewModel, Source={StaticResource ViewModelLocator}}"
+             d:DataContext="{d:DesignInstance viewModels:TeamViewModel, IsDesignTimeCreatable=True}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converter:NegBooleanToVisibilityConverter x:Key="NegBooleanToVisibilityConverter" />
+        <Style TargetType="{x:Type Button}" x:Key="formatTextStyle">
+            <Setter Property="FontFamily" Value="Palatino Linotype"></Setter>
+            <Setter Property="Width" Value="30"></Setter>
+            <Setter Property="FontSize" Value ="14"></Setter>
+            <Setter Property="CommandTarget" Value="{Binding ElementName=mainRTB}"></Setter>
+        </Style>
+        <Style TargetType="{x:Type Button}" x:Key="formatImageStyle">
+            <Setter Property="Width" Value="30"></Setter>
+            <Setter Property="CommandTarget" Value="{Binding ElementName=mainRTB}"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="250"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer>
+        <StackPanel Grid.Column="0">
+            <Label HorizontalAlignment="Center" FontSize="30" FontWeight="Bold" Content="{Binding Team.Title}"></Label>
+            <StackPanel Background="Silver">
+                <StackPanel Orientation="Horizontal">
+                    <Label>Admin:</Label>
+                    <Label Content="{Binding Team.Admin.Email}"></Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label>Description:</Label>
+                    <Label Content="{Binding Team.Description}"></Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label>Category:</Label>
+                    <Label Content="{Binding Team.Category}"></Label>
+                </StackPanel>
+            </StackPanel>
+           
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Text="{Binding SearchText}" FontSize="15" Width="300"></TextBox>
+                        <Button Command="{Binding SearchCommand}" Content="Search"></Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0 40 0 0">
+                        <Label>Title:</Label>
+                        <TextBox Text="{Binding NewPost.Title}" Width="300"></TextBox>
+                    </StackPanel>
+                    <DockPanel Name="mainPanel">
+                        <ToolBar Name="mainToolBar" Height="30" DockPanel.Dock="Top">
+
+                            <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Cut" ToolTip="Cut">
+                                <Image Source="..\Images/editcut.png"></Image>
+                            </Button>
+                            <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Copy" ToolTip="Copy">
+                                <Image Source="..\Images/editcopy.png"></Image>
+                            </Button>
+                            <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Paste" ToolTip="Paste">
+                                <Image Source="..\Images/editpaste.png"></Image>
+                            </Button>
+                            <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Undo" ToolTip="Undo">
+                                <Image Source="..\Images/editundo.png"></Image>
+                            </Button>
+                            <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Redo" ToolTip="Redo">
+                                <Image Source="..\Images/editredo.png"></Image>
+                            </Button>
+
+                            <Button Style="{StaticResource formatTextStyle}" Command="EditingCommands.ToggleBold" ToolTip="Bold">
+                                <TextBlock FontWeight="Bold">B</TextBlock>
+                            </Button>
+                            <Button Style="{StaticResource formatTextStyle}" Command="EditingCommands.ToggleItalic" ToolTip="Italic">
+                                <TextBlock FontStyle="Italic" FontWeight="Bold">I</TextBlock>
+                            </Button>
+                            <Button Style="{StaticResource formatTextStyle}" Command="EditingCommands.ToggleUnderline" ToolTip="Underline">
+                                <TextBlock TextDecorations="Underline" FontWeight="Bold">U</TextBlock>
+                            </Button>
+                            <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.IncreaseFontSize" ToolTip="Grow Font">
+                                <Image Source="..\Images\fontgrow.png"></Image>
+                            </Button>
+                            <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.DecreaseFontSize" ToolTip="Shrink Font">
+                                <Image Source="..\Images\fontshrink.png"></Image>
+                            </Button>
+
+                            <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.ToggleBullets" ToolTip="Bullets">
+                                <Image Source="..\Images/listbullets.png"></Image>
+                            </Button>
+                            <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.ToggleNumbering" ToolTip="Numbering">
+                                <Image Source="..\Images/listnumbers.png"></Image>
+                            </Button>
+                            <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.AlignLeft" ToolTip="Align Left">
+                                <Image Source="..\Images\alignleft.png"></Image>
+                            </Button>
+                            <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.AlignCenter" ToolTip="Align Center">
+                                <Image Source="..\Images\aligncenter.png"></Image>
+                            </Button>
+                            <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.AlignRight" ToolTip="Align Right">
+                                <Image Source="..\Images/alignright.png"></Image>
+                            </Button>
+                            <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.AlignJustify" ToolTip="Align Justify">
+                                <Image Source="..\Images/alignjustify.png"></Image>
+                            </Button>
+                        </ToolBar>
+                        <xctk:RichTextBox Margin="10" Name="mainRTB" AcceptsTab="True" Height="80" BorderBrush="Gray" Padding="10"
+                                             Text="{Binding NewPost.Content}" 
+                                             ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <xctk:RichTextBox.TextFormatter>
+                                <xctk:RtfFormatter />
+                            </xctk:RichTextBox.TextFormatter>
+                        </xctk:RichTextBox>
+                    </DockPanel>
+                    <Button Content="Send" Height="35" VerticalAlignment="Bottom" Command="{Binding AddNewPostCommand}"></Button>
+                    <Button Content="Refresh" Command="{Binding RefreshCommand}"></Button>
+                    <ListView BorderBrush="Transparent" Background="Transparent" ItemsSource="{Binding Posts}" Grid.Column="0">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Focusable="False" Width="700">
+                                    <Label Content="{Binding Title}"></Label>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label  Margin="5,0,0,0" Content="{Binding Author.Email}"></Label>
+                                        <Label  Margin="5,0,0,0" Content="{Binding Timestamp}"></Label>
+                                    </StackPanel>
+                                    <xctk:RichTextBox IsEnabled="False" Margin="10" Padding="10"
+                                                      Text="{Binding Content}" 
+                                                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                        <xctk:RichTextBox.TextFormatter>
+                                            <xctk:RtfFormatter />
+                                        </xctk:RichTextBox.TextFormatter>
+                                    </xctk:RichTextBox>
+                                    <ListView BorderBrush="Transparent" Foreground="Black" Focusable="False" ItemsSource="{Binding Comments}">
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Width="600">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Label Margin="5,0,0,0" Content="{Binding Author.Email}"></Label>
+                                                        <Label Margin="5,0,0,0" Content="{Binding Timestamp}"></Label>
+                                                    </StackPanel>
+                                                    <xctk:RichTextBox IsEnabled="False" Margin="10" Padding="10" Width="600"
+                                                                      Text="{Binding Content}" 
+                                                                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                                        <xctk:RichTextBox.TextFormatter>
+                                                            <xctk:RtfFormatter />
+                                                        </xctk:RichTextBox.TextFormatter>
+                                                    </xctk:RichTextBox>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                    <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
+                                        <Label Content="New comment:"></Label>
+                                        <DockPanel Name="secondPanel">
+                                            <ToolBar Name="secondToolBar" Height="30" DockPanel.Dock="Top">
+
+                                                <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Cut" ToolTip="Cut">
+                                                    <Image Source="..\Images/editcut.png"></Image>
+                                                </Button>
+                                                <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Copy" ToolTip="Copy">
+                                                    <Image Source="..\Images/editcopy.png"></Image>
+                                                </Button>
+                                                <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Paste" ToolTip="Paste">
+                                                    <Image Source="..\Images/editpaste.png"></Image>
+                                                </Button>
+                                                <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Undo" ToolTip="Undo">
+                                                    <Image Source="..\Images/editundo.png"></Image>
+                                                </Button>
+                                                <Button Style="{StaticResource formatImageStyle}" Command="ApplicationCommands.Redo" ToolTip="Redo">
+                                                    <Image Source="..\Images/editredo.png"></Image>
+                                                </Button>
+
+                                                <Button Style="{StaticResource formatTextStyle}" Command="EditingCommands.ToggleBold" ToolTip="Bold">
+                                                    <TextBlock FontWeight="Bold">B</TextBlock>
+                                                </Button>
+                                                <Button Style="{StaticResource formatTextStyle}" Command="EditingCommands.ToggleItalic" ToolTip="Italic">
+                                                    <TextBlock FontStyle="Italic" FontWeight="Bold">I</TextBlock>
+                                                </Button>
+                                                <Button Style="{StaticResource formatTextStyle}" Command="EditingCommands.ToggleUnderline" ToolTip="Underline">
+                                                    <TextBlock TextDecorations="Underline" FontWeight="Bold">U</TextBlock>
+                                                </Button>
+                                                <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.IncreaseFontSize" ToolTip="Grow Font">
+                                                    <Image Source="..\Images\fontgrow.png"></Image>
+                                                </Button>
+                                                <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.DecreaseFontSize" ToolTip="Shrink Font">
+                                                    <Image Source="..\Images\fontshrink.png"></Image>
+                                                </Button>
+
+                                                <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.ToggleBullets" ToolTip="Bullets">
+                                                    <Image Source="..\Images/listbullets.png"></Image>
+                                                </Button>
+                                                <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.ToggleNumbering" ToolTip="Numbering">
+                                                    <Image Source="..\Images/listnumbers.png"></Image>
+                                                </Button>
+                                                <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.AlignLeft" ToolTip="Align Left">
+                                                    <Image Source="..\Images\alignleft.png"></Image>
+                                                </Button>
+                                                <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.AlignCenter" ToolTip="Align Center">
+                                                    <Image Source="..\Images\aligncenter.png"></Image>
+                                                </Button>
+                                                <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.AlignRight" ToolTip="Align Right">
+                                                    <Image Source="..\Images/alignright.png"></Image>
+                                                </Button>
+                                                <Button Style="{StaticResource formatImageStyle}" Command="EditingCommands.AlignJustify" ToolTip="Align Justify">
+                                                    <Image Source="..\Images/alignjustify.png"></Image>
+                                                </Button>
+                                            </ToolBar>
+                                            <xctk:RichTextBox Width="550" Name="mainRTB"  Margin="10" AcceptsTab="True" Height="80" BorderBrush="Gray" Padding="10" Text="{Binding NewComment.Content}"
+                                             ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                                <xctk:RichTextBox.TextFormatter>
+                                                    <xctk:RtfFormatter />
+                                                </xctk:RichTextBox.TextFormatter>
+                                            </xctk:RichTextBox>
+                                        </DockPanel>
+                                        <Button CommandParameter="{Binding Id}" Command="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}, Path=DataContext.AddCommentCommand}" Height="35" VerticalAlignment="Bottom" HorizontalAlignment="Right" Content="Send"></Button>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid Background="Silver" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel  VerticalAlignment="Center"   Grid.Row="0">
+                <StackPanel Visibility="{Binding Path= IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ComboBox Height="32" ItemsSource="{Binding UsersToInvite}" SelectedItem="{Binding SelectedUserToInvite}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Label Content="{Binding Email}"></Label>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button FontSize="18" Content="Add User" Command="{Binding AddUserCommand}"></Button>
+                </StackPanel>
+                <Label HorizontalAlignment="Center" FontSize="15" Visibility="{Binding Path=IsAdmin, Converter={StaticResource NegBooleanToVisibilityConverter}}">Only admin can remove player</Label>
+
+            </StackPanel>
+            <ListView Grid.Row="1" SelectedItem="{Binding SelectedUserToRemove}" ItemsSource="{Binding TeamUsers}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <Label Content="{Binding Email}"></Label>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <StackPanel VerticalAlignment="Center"  Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Visibility="{Binding Path=IsAdmin, Converter={StaticResource BooleanToVisibilityConverter}}" Command="{Binding RemoveUserCommand}" FontSize="15" FontWeight="Bold" Height="30" HorizontalAlignment="Center" Padding="20 5" Content="Remove User From Team"></Button>
+                <Label FontSize="15" Visibility="{Binding Path=IsAdmin, Converter={StaticResource NegBooleanToVisibilityConverter}}">Only admin can remove player</Label>
+            </StackPanel>
+            
+        </Grid>
+    </Grid>
+    
+</UserControl>

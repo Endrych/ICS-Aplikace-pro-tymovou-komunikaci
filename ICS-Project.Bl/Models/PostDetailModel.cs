@@ -9,6 +9,7 @@ namespace ICS_Project.Bl.Models
     {
         public string Title { get; set; }
         public ICollection<CommentDetailModel> Comments { get; set; } = new List<CommentDetailModel>();
-        public TeamDetailModel Team { get; set; }
+
+        public CommentDetailModel NewComment { get; set; } = new CommentDetailModel();
     }
 }

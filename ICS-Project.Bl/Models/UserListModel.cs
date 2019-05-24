@@ -8,5 +8,6 @@ namespace ICS_Project.Bl.Models
     public class UserListModel: ModelBase
     {
         public string Nickname { get; set; }
+        public string Email { get; set; }
     }
 }

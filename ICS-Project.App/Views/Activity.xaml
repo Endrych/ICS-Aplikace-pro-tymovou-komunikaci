@@ -1,0 +1,55 @@
+<UserControl x:Class="ICS_Project.App.Views.Activity"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModels="clr-namespace:ICS_Project.App.ViewModels"
+             xmlns:app="clr-namespace:ICS_Project.App"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d"
+             DataContext="{Binding ProfileViewModel, Source={StaticResource ViewModelLocator}}"
+             d:DataContext="{d:DesignInstance viewModels:ProfileViewModel, IsDesignTimeCreatable=True}">
+<Grid>
+
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+        <ColumnDefinition Width="*"></ColumnDefinition>
+    </Grid.ColumnDefinitions>
+
+        <ListBox ItemsSource="{Binding Posts}" Grid.Column="0">
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Width="400">
+                    <Label Content="{Binding Title}"></Label>
+                    <Label  Margin="5,0,0,0" Content="{Binding Timestamp}"></Label>
+                    <xctk:RichTextBox Margin="10" AcceptsTab="True" BorderBrush="Gray" Padding="10"
+                                      Text="{Binding Content}" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <xctk:RichTextBox.TextFormatter>
+                            <xctk:RtfFormatter />
+                        </xctk:RichTextBox.TextFormatter>
+                    </xctk:RichTextBox>
+                    </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+
+    <ListBox ItemsSource="{Binding Comments}" Grid.Column="1">
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Width="400">
+                    <Label Content="{Binding Timestamp}"></Label>
+                    <xctk:RichTextBox Margin="10" AcceptsTab="True" BorderBrush="Gray" Padding="10"
+                                      Text="{Binding Content}" 
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <xctk:RichTextBox.TextFormatter>
+                            <xctk:RtfFormatter />
+                        </xctk:RichTextBox.TextFormatter>
+                    </xctk:RichTextBox>
+                </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
+
+    </Grid>
+</UserControl>

@@ -12,6 +12,7 @@ namespace ICS_Project.Bl.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }
+        public UserDetailModel Admin { get; set; }
         public ICollection<UserDetailModel> Users { get; set; } = new List<UserDetailModel>();
         public ICollection<PostDetailModel> Posts { get; set; } = new List<PostDetailModel>();    
     }

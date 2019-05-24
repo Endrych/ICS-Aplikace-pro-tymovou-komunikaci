@@ -18,9 +18,9 @@ namespace ICS_Project.Tests
         {
             var dbContextFactory = new InMemoryDbContextFactory();
 
-            var content = "Test";
+            const string content = "Test";
 
-            using (IcsDbContext context = dbContextFactory.CreateDbContext())
+            using (var context = dbContextFactory.CreateDbContext())
             {
                 context.Posts.Add(new PostEntity() {Content = content, Timestamp = DateTime.Now});
                 context.SaveChanges();
@@ -34,40 +34,15 @@ namespace ICS_Project.Tests
         {
             var dbContextFactory = new InMemoryDbContextFactory();
 
-            var content = "Test1";
+            const string content = "Test1";
 
-            using (IcsDbContext context = dbContextFactory.CreateDbContext())
+            using (var context = dbContextFactory.CreateDbContext())
             {
                 context.Posts.Add(new PostEntity() { Content = content, Timestamp = DateTime.Now });
                 context.SaveChanges();
                 var postFromDatabase = context.Posts.FirstOrDefault(post => post.Content == "42");
                 Assert.Null(postFromDatabase);
             }
-        }
-
-        [Fact]
-        public void RegisterTest()
-        {
-            var dbContextFactory = new InMemoryDbContextFactory();
-            var authentication = new Authentication(dbContextFactory);
-
-            var user = new UserDetailModel()
-            {
-                Comments = new List<CommentDetailModel>(),
-                Email = "test@gmail.com",
-                FirstName = "David",
-                LastName = "Endrych",
-                Nickname = "david",
-                Password = "testtest",
-                Posts = new List<PostDetailModel>(),
-                Teams = new List<TeamDetailModel>()
-            };
-
-            var newUser = authentication.Registration(user);
-            Assert.NotEqual(Guid.Empty, newUser.Id);
-            Assert.NotNull(newUser.Salt);
-            Assert.NotEqual(newUser.Password, user.Password);
-
         }
     }
 }

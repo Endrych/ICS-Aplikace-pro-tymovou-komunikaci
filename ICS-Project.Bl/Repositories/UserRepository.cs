@@ -14,19 +14,12 @@ namespace ICS_Project.Bl.Repositories
 {
     public class UserRepository: IRepository<UserDetailModel>
     {
-        private readonly UserMapper _userMapper;
-        private readonly CommentMapper _commentMapper;
-        private readonly PostMapper _postMapper;
-        private readonly TeamMapper _teamMapper;
+        private readonly UserMapper _userMapper = new UserMapper();
         private readonly IDbContextFactory _dbContextFactory;
 
         public UserRepository(IDbContextFactory dbContextFactory)
         {
             _dbContextFactory = dbContextFactory;
-            //_teamMapper = new TeamMapper();
-            //_userMapper = new UserMapper();
-            //_commentMapper = new CommentMapper();
-            //_postMapper = new PostMapper();
         }
 
         public IEnumerable<UserListModel> GetUserListModels()
@@ -43,11 +36,7 @@ namespace ICS_Project.Bl.Repositories
             {
                 return _userMapper.MapToUserDetailModel(
                     context.Users
-                        .Where(user => user.Id == id)
-                        .Include(user => user.Posts)
-                        .Include(user => user.Comments)
-                        .Include(user => user.UserTeams)
-                        .FirstOrDefault());
+                        .FirstOrDefault(user => user.Id == id));
             }
         }
 
@@ -57,7 +46,7 @@ namespace ICS_Project.Bl.Repositories
 
             using (var context = _dbContextFactory.CreateDbContext())
             {
-                //userModel = _userMapper.MapToUserDetailModel(context.Users.FirstOrDefault(user => user.Email == email));
+                userModel = _userMapper.MapToUserDetailModel(context.Users.FirstOrDefault(user => user.Email == email));
             }
 
             return userModel;
@@ -67,36 +56,21 @@ namespace ICS_Project.Bl.Repositories
         {
             using (var context = _dbContextFactory.CreateDbContext())
             {
-                //var entity = _userMapper.MapToUserEntity(item);
-                //entity.Id = Guid.NewGuid();
-                //context.Users.Add(entity);
-                //context.SaveChanges();
-                //return _userMapper.MapToUserDetailModel(entity);
+                var entity = _userMapper.MapToUserEntity(item);
+                entity.Id = Guid.NewGuid();
+                context.Users.Add(entity);
+                context.SaveChanges();
+                return _userMapper.MapToUserDetailModel(entity);
             }
-            return  new UserDetailModel();;
         }
 
         public void Update(UserDetailModel item)
         {
             using (var context = _dbContextFactory.CreateDbContext())
             {
-                //var entity = context.Users.Include(user => user.UserTeams).Include(user => user.Posts).Include(user => user.Comments).First(user => user.Id == item.Id);
-                //entity.Email = item.Email;
-                //entity.Nickname = item.Nickname;
-                //entity.FirstName = item.FirstName;
-                //entity.LastName = item.LastName;
-                //entity.Comments = item.Comments.Select(_commentMapper.MapToCommentEntity).ToList();
-                //entity.Posts = item.Posts.Select(_postMapper.MapToPostEntity).ToList();
-                //entity.UserTeams = item.Teams.Select(team => new UserTeamEntity { UserId = item.Id, User = entity, Team = _teamMapper.MapToTeamEntity(team), TeamId = team.Id }).ToList();
-                //entity.UserTeams = item.Teams.Select(detailModel =>
-                //{
-                //    var teamEntity = _teamMapper.MapToTeamEntity(detailModel);
-                //    if (context.Teams.Any(team => team.Id == teamEntity.Id))
-                //    {
-                //        teamEntity = context.Teams.Find(teamEntity.Id);
-                //    }
-                //    return teamEntity;
-                //});
+                var entity = _userMapper.MapToUserEntity(item);
+                context.Users.Update(entity);
+                context.SaveChanges();
             }
         }
 

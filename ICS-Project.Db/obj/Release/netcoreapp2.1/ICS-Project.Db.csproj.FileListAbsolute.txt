@@ -1,0 +1,9 @@
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Db\bin\Release\netcoreapp2.1\ICS-Project.Db.deps.json
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Db\bin\Release\netcoreapp2.1\ICS-Project.Db.dll
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Db\bin\Release\netcoreapp2.1\ICS-Project.Db.pdb
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Db\obj\Release\netcoreapp2.1\ICS-Project.Db.csprojAssemblyReference.cache
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Db\obj\Release\netcoreapp2.1\ICS-Project.Db.csproj.CoreCompileInputs.cache
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Db\obj\Release\netcoreapp2.1\ICS-Project.Db.AssemblyInfoInputs.cache
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Db\obj\Release\netcoreapp2.1\ICS-Project.Db.AssemblyInfo.cs
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Db\obj\Release\netcoreapp2.1\ICS-Project.Db.dll
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Db\obj\Release\netcoreapp2.1\ICS-Project.Db.pdb

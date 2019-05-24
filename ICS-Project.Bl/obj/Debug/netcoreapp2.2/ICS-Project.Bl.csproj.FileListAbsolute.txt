@@ -1,0 +1,13 @@
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Bl\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Bl\bin\Debug\netcoreapp2.2\ICS-Project.Bl.deps.json
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Bl\bin\Debug\netcoreapp2.2\ICS-Project.Bl.dll
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Bl\bin\Debug\netcoreapp2.2\ICS-Project.Bl.pdb
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Bl\bin\Debug\netcoreapp2.2\ICS-Project.Db.dll
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Bl\bin\Debug\netcoreapp2.2\ICS-Project.Db.pdb
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Bl\obj\Debug\netcoreapp2.2\ICS-Project.Bl.csprojAssemblyReference.cache
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Bl\obj\Debug\netcoreapp2.2\ICS-Project.Bl.csproj.CoreCompileInputs.cache
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Bl\obj\Debug\netcoreapp2.2\ICS-Project.Bl.AssemblyInfoInputs.cache
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Bl\obj\Debug\netcoreapp2.2\ICS-Project.Bl.AssemblyInfo.cs
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Bl\obj\Debug\netcoreapp2.2\ICS-Project.Bl.csproj.CopyComplete
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Bl\obj\Debug\netcoreapp2.2\ICS-Project.Bl.dll
+C:\Users\David\Source\Repos\project\ICS-Project\ICS-Project.Bl\obj\Debug\netcoreapp2.2\ICS-Project.Bl.pdb

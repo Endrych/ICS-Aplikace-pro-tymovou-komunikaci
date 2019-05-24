@@ -19,10 +19,23 @@ namespace ICS_Project.Db
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+
+            if (!optionsBuilder.IsConfigured)
+            {
+                var builder = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json");
+                var configuration = builder.Build();
+                
+                optionsBuilder.UseSqlServer(configuration.GetConnectionString("ICSDatabase")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserTeamEntity>()
-                .HasKey(t => new { t.UserId, t.TeamId });
             modelBuilder.Entity<UserEntity>()
                 .HasIndex(u => u.Email)
                 .IsUnique();

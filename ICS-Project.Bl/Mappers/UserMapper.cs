@@ -9,28 +9,40 @@ namespace ICS_Project.Bl.Mappers
 {
     public class UserMapper
     {
-        private readonly TeamMapper _teamMapper;
-        private readonly CommentMapper _commentMapper;
-        private readonly PostMapper _postMapper;
+        private readonly Mappers _mappers;
 
         public UserMapper()
         {
-            _teamMapper = new TeamMapper();
-            _commentMapper = new CommentMapper();
-            _postMapper = new PostMapper();
+            _mappers = new Mappers();
+        }
+
+        public UserMapper(Mappers mappers)
+        {
+            _mappers = mappers;
         }
 
         public UserListModel MapToUserListModel(UserEntity entity)
         {
+            if (entity == null)
+            {
+                return null;
+            }
+
             return new UserListModel
             {
                 Id = entity.Id,
                 Nickname = entity.Nickname,
+                Email = entity.Email
             };
         }
 
         public UserLoginModel MapToUserLoginModel(UserEntity entity)
         {
+            if (entity == null)
+            {
+                return null;
+            }
+
             return new UserLoginModel
             {
                 Id = entity.Id,
@@ -42,6 +54,11 @@ namespace ICS_Project.Bl.Mappers
 
         public UserDetailModel MapToUserDetailModel(UserEntity entity)
         {
+            if (entity == null)
+            {
+                return null;
+            }
+
             return new UserDetailModel
             {
                 Id = entity.Id,
@@ -51,14 +68,16 @@ namespace ICS_Project.Bl.Mappers
                 LastName = entity.LastName,
                 Password = entity.Password,
                 Salt = entity.Salt,
-                Comments = entity.Comments.AsEnumerable().Select(_commentMapper.MapToCommentDetailModelModel).ToList(),
-                Posts = entity.Posts.AsEnumerable().Select(_postMapper.MapToPostDetailModel).ToList(),
-                Teams = entity.UserTeams.AsEnumerable().Select(userTeam => _teamMapper.MapToTeamDetailModel(userTeam.Team)).ToList()
             };
         }
 
         public UserEntity MapToUserEntity(UserDetailModel modelAuthor)
         {
+            if (modelAuthor == null)
+            {
+                return null;
+            }
+
             var userEntity = new UserEntity()
             {
                 Id = modelAuthor.Id,
@@ -68,19 +87,14 @@ namespace ICS_Project.Bl.Mappers
                 Nickname = modelAuthor.Nickname,
                 FirstName = modelAuthor.FirstName,
                 LastName = modelAuthor.LastName,
-                Comments = modelAuthor.Comments.AsEnumerable().Select(_commentMapper.MapToCommentEntity).ToList(),
-                Posts = modelAuthor.Posts.AsEnumerable().Select(_postMapper.MapToPostEntity).ToList(),
             };
 
-            userEntity.UserTeams = modelAuthor.Teams.AsEnumerable().Select(team => new UserTeamEntity()
-            {
-                UserId = modelAuthor.Id,
-                User = userEntity,
-                TeamId = team.Id,
-                Team = _teamMapper.MapToTeamEntity(team)
-            }).ToList();
-
             return userEntity;
+        }
+
+        public UserListModel MapDetailToListModel(UserDetailModel model)
+        {
+            return new UserListModel() {Email = model.Email, Id = model.Id, Nickname = model.Nickname};
         }
     }
 }

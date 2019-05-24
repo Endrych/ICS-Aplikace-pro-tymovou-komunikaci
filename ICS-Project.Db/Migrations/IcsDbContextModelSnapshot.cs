@@ -28,7 +28,7 @@ namespace ICS_Project.Db.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<Guid?>("PostId");
+                    b.Property<Guid?>("PostEntityId");
 
                     b.Property<DateTime>("Timestamp");
 
@@ -36,7 +36,7 @@ namespace ICS_Project.Db.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("PostId");
+                    b.HasIndex("PostEntityId");
 
                     b.ToTable("Comments");
                 });
@@ -50,7 +50,7 @@ namespace ICS_Project.Db.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<Guid?>("TeamId");
+                    b.Property<Guid?>("TeamEntityId");
 
                     b.Property<DateTime>("Timestamp");
 
@@ -60,7 +60,7 @@ namespace ICS_Project.Db.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("TeamId");
+                    b.HasIndex("TeamEntityId");
 
                     b.ToTable("Posts");
                 });
@@ -70,6 +70,8 @@ namespace ICS_Project.Db.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<Guid?>("AdminId");
+
                     b.Property<string>("Category");
 
                     b.Property<string>("Description");
@@ -77,6 +79,8 @@ namespace ICS_Project.Db.Migrations
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AdminId");
 
                     b.ToTable("Teams");
                 });
@@ -98,61 +102,53 @@ namespace ICS_Project.Db.Migrations
 
                     b.Property<string>("Salt");
 
+                    b.Property<Guid?>("TeamEntityId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique()
                         .HasFilter("[Email] IS NOT NULL");
 
+                    b.HasIndex("TeamEntityId");
+
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("ICS_Project.Db.Entities.UserTeamEntity", b =>
-                {
-                    b.Property<Guid>("UserId");
-
-                    b.Property<Guid>("TeamId");
-
-                    b.HasKey("UserId", "TeamId");
-
-                    b.HasIndex("TeamId");
-
-                    b.ToTable("UserTeamEntity");
                 });
 
             modelBuilder.Entity("ICS_Project.Db.Entities.CommentEntity", b =>
                 {
                     b.HasOne("ICS_Project.Db.Entities.UserEntity", "Author")
-                        .WithMany("Comments")
+                        .WithMany()
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("ICS_Project.Db.Entities.PostEntity", "Post")
+                    b.HasOne("ICS_Project.Db.Entities.PostEntity")
                         .WithMany("Comments")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostEntityId");
                 });
 
             modelBuilder.Entity("ICS_Project.Db.Entities.PostEntity", b =>
                 {
                     b.HasOne("ICS_Project.Db.Entities.UserEntity", "Author")
-                        .WithMany("Posts")
+                        .WithMany()
                         .HasForeignKey("AuthorId");
 
-                    b.HasOne("ICS_Project.Db.Entities.TeamEntity", "Team")
+                    b.HasOne("ICS_Project.Db.Entities.TeamEntity")
                         .WithMany("Posts")
-                        .HasForeignKey("TeamId");
+                        .HasForeignKey("TeamEntityId");
                 });
 
-            modelBuilder.Entity("ICS_Project.Db.Entities.UserTeamEntity", b =>
+            modelBuilder.Entity("ICS_Project.Db.Entities.TeamEntity", b =>
                 {
-                    b.HasOne("ICS_Project.Db.Entities.TeamEntity", "Team")
-                        .WithMany("UserTeams")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("ICS_Project.Db.Entities.UserEntity", "Admin")
+                        .WithMany()
+                        .HasForeignKey("AdminId");
+                });
 
-                    b.HasOne("ICS_Project.Db.Entities.UserEntity", "User")
-                        .WithMany("UserTeams")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity("ICS_Project.Db.Entities.UserEntity", b =>
+                {
+                    b.HasOne("ICS_Project.Db.Entities.TeamEntity")
+                        .WithMany("Users")
+                        .HasForeignKey("TeamEntityId");
                 });
 #pragma warning restore 612, 618
         }
