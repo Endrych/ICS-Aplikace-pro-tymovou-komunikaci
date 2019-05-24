@@ -1,0 +1,1 @@
+# ICS-Aplikace-pro-tymovou-komunikaci
